@@ -1,0 +1,6 @@
+##grflangid 0x00
+# English US language file
+
+STR_GRF_NAME					:{TITLE}
+STR_GRF_DESCRIPTION				:{WHITE}Martian Town Names, taken from geographic features of Mars or standard feature types used to name geographic features. The list was pulled from Wikipedia.{}{BLACK}Martian Town Names {COPYRIGHT}{COPYRIGHTDT} {AUTHOR}{}{ORANGE}License - {LICENSE}
+STR_GAME_OPTIONS_TOWN_NAME_MARS	:Martian Town Names

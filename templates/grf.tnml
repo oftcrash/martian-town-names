@@ -1,0 +1,7 @@
+grf {
+	grfid: "KK\04\01";
+	name: string(STR_GRF_NAME);
+	desc: string(STR_GRF_DESCRIPTION);
+	version: {{ version }};
+	min_compatible_version: 0;
+}

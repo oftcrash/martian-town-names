@@ -1,0 +1,5 @@
+##grflangid 0x00
+# English US language file
+
+STR_GRF_NAME					:{TITLE}
+STR_GRF_DESCRIPTION				:{ORANGE}A list of Martian Town Names, taken from geographic features of Mars listed on Wikipedia. No effort was made to ensure accuracy.{}Martian Town Names {COPYRIGHT}{COPYRIGHTDT} {AUTHOR}{}License - {LICENSE}

@@ -1,0 +1,19 @@
+grf {
+	grfid: "KK";
+	name: string(STR_GRF_NAME);
+	desc: string(STR_GRF_DESCRIPTION);
+	version: 0;
+	min_compatible_version: 0;
+}
+
+town_names(A) {
+	styles:	string(STR_GAME_OPTIONS_TOWN_NAME_MARS);
+	{
+	text("name", 1),
+text("Mare Boreum", 1),
+text("Diacria", 1),
+text("Arcadia", 1),
+text("Mare Acidalium", 1),
+text("Ismenius Lacus", 1),
+	}
+}

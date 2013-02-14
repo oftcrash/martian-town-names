@@ -1,0 +1,8 @@
+town_names({{ id }}) {
+	{
+	{% for name in names %}
+		text("{{ name }}", 1){% if not loop.last %},{% endif %}
+
+	{% endfor %}
+	}
+}
