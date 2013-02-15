@@ -2,3 +2,4 @@
 parsetab.py
 *.pyc
 archive/
+release/
