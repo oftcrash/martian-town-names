@@ -39,7 +39,7 @@ def customTags():
 	ct.write('VERSION:' + version + '\n')
 	ct.write('UPDATEDT:' + str(datetime.now()) + '\n')
 	ct.write('TITLE:Martian Town Names 1.0\n')
-	ct.write('AUTHOR:Kris Knowlton\n')
+	ct.write('AUTHOR:Kris Knowlton (Oftcrash)\n')
 	ct.write('COPYRIGHTDT:2013\n')
 	ct.write('LICENSE:CC by 3.0\n')
 	ct.close()
@@ -74,6 +74,8 @@ def setupBuild():
 		for s in subdirs:
 			os.makedirs(os.path.join(buildPath, s))
 			print 'created %s directory' % s
+	if not os.path.exists(releasePath):
+		os.makedirs(releasePath)
 
 #archive any existing builds before starting a new one
 def cleanup():
@@ -83,7 +85,10 @@ def cleanup():
 			print '  created archive directory'
 		build = str(getBuildNumber())
 		os.rename(buildPath, os.path.join(archivePath, build))
+		if os.path.exists(releasePath):
+				os.rename(releasePath,os.path.join(archivePath, build, 'release'))
 		print '  archived build %s' % build
+
 
 def readCSV():
 	env = Environment(loader=FileSystemLoader(templatePath), trim_blocks=True)
@@ -136,6 +141,29 @@ def readCSV():
 	'''
 	return out
 
+def release():
+	try:
+		os.chdir(buildPath)
+		os.system('nmlc ' +  name + '.nml')
+		newgrfFile = name + '.grf'
+		print 'compiled %s' % newgrfFile
+	except:
+		print 'error compiling'
+	else:
+		if os.path.isfile(newgrfFile):
+			os.system('cp %s %s' % (newgrfFile,newgrfPath))
+			print 'copied %s to %s' % (newgrfFile,newgrfPath)
+			os.system('mv %s %s' % (newgrfFile,releasePath))
+			print 'moved %s to %s' % (newgrfFile,releasePath)
+			os.system('cp %s %s' % (os.path.join(basePath, 'readme.txt'),releasePath))
+			print 'copied %s to %s' % (os.path.join(basePath, 'readme.txt'), releasePath)
+			os.system('cp %s %s' % (os.path.join(basePath, 'license.txt'),releasePath))
+			print 'copied %s to %s' % (os.path.join(basePath, 'license.txt'), releasePath)
+			os.chdir(releasePath)
+			releaseFile = projectName + '.zip'
+			os.system('zip %s *' % releaseFile)
+			print 'SUCCESS!'
+	
 #create the new build
 def newBuild():
 	print 'Starting build...'
@@ -146,18 +174,6 @@ def newBuild():
 	customTags()
 	lang()
 	writeNML(readCSV())
-	try:
-		os.chdir(buildPath)
-		os.system('nmlc ' +  name + '.nml')
-		newgrfFile = name + '.grf'
-		print 'compiled %s' % newgrfFile
-	except:
-		print 'error compiling'
-	else:
-		if os.path.isfile(newgrfFile):
-			os.system('mv %s %s' % (newgrfFile,newgrfPath))
-			print 'copied %s to %s' % (newgrfFile,newgrfPath)
-			print 'SUCCESS!'
-
+	release()
 
 newBuild()
